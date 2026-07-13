@@ -1,0 +1,4 @@
+proxmox_api_token = "terraform@pve!terraform-token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+
+ct_vm_id    = 199
+ct_hostname = "mi-contenedor"

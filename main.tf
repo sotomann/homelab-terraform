@@ -1,12 +1,12 @@
 resource "proxmox_virtual_environment_container" "test" {
-  description = "Creado por Terraform - prueba"
+  description = "Creado por Terraform"
   node_name   = "proxmox"
-  vm_id       = 199
+  vm_id       = var.ct_vm_id
 
   unprivileged = true
 
   initialization {
-    hostname = "tf-test01"
+    hostname = var.ct_hostname
 
     ip_config {
       ipv4 {
@@ -25,21 +25,21 @@ resource "proxmox_virtual_environment_container" "test" {
   }
 
   operating_system {
-    template_file_id = "local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"
+    template_file_id = var.ct_template
     type              = "debian"
   }
 
   cpu {
-    cores = 1
+    cores = var.ct_cores
   }
 
   memory {
-    dedicated = 512
+    dedicated = var.ct_memory
   }
 
   disk {
     datastore_id = "local-lvm"
-    size         = 4
+    size         = var.ct_disk_size
   }
 
   started = true
