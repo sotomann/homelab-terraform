@@ -1,4 +1,11 @@
 proxmox_api_token = "terraform@pve!terraform-token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-ct_vm_id    = 199
-ct_hostname = "mi-contenedor"
+contenedores = {
+  ejemplo01 = {
+    vm_id    = 210
+    hostname = "ejemplo01"
+    flavor   = "basico"
+    ip       = "192.168.1.60/24"
+    gateway  = "192.168.1.1"
+  }
+}

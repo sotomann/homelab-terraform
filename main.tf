@@ -1,16 +1,19 @@
-resource "proxmox_virtual_environment_container" "test" {
+resource "proxmox_virtual_environment_container" "lxc" {
+  for_each = var.contenedores
+
   description = "Creado por Terraform"
   node_name   = "proxmox"
-  vm_id       = var.ct_vm_id
+  vm_id       = each.value.vm_id
 
   unprivileged = true
 
   initialization {
-    hostname = var.ct_hostname
+    hostname = each.value.hostname
 
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = each.value.ip
+        gateway = each.value.ip == "dhcp" ? null : each.value.gateway
       }
     }
 
@@ -25,21 +28,21 @@ resource "proxmox_virtual_environment_container" "test" {
   }
 
   operating_system {
-    template_file_id = var.ct_template
+    template_file_id = each.value.template
     type              = "debian"
   }
 
   cpu {
-    cores = var.ct_cores
+    cores = var.flavors[each.value.flavor].cores
   }
 
   memory {
-    dedicated = var.ct_memory
+    dedicated = var.flavors[each.value.flavor].memory
   }
 
   disk {
     datastore_id = "local-lvm"
-    size         = var.ct_disk_size
+    size         = var.flavors[each.value.flavor].disk
   }
 
   started = true
