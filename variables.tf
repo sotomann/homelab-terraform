@@ -37,3 +37,17 @@ variable "contenedores" {
     nesting = optional(bool, false)
  }))
 }
+
+variable "vms_windows" {
+  description = "VMs Windows a desplegar, clonadas desde una plantilla ya preparada"
+  type = map(object({
+    vm_id          = number
+    name           = string
+    template_vm_id = number
+    cores          = optional(number, 2)
+    memory         = optional(number, 4096)
+    disk           = optional(number, 60)
+    bridge         = optional(string, "vmbr0")
+  }))
+  default = {}
+}

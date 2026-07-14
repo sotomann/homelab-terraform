@@ -9,3 +9,11 @@ contenedores = {
     gateway  = "192.168.1.1"
   }
 }
+
+vms_windows = {
+  ejemplo_win = {
+    vm_id          = 301
+    name           = "ejemplo-win"
+    template_vm_id = 251
+  }
+}
