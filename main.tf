@@ -45,5 +45,10 @@ resource "proxmox_virtual_environment_container" "lxc" {
     size         = var.flavors[each.value.flavor].disk
   }
 
+  features {
+    nesting = each.value.nesting
+  }
+
   started = true
 }
+

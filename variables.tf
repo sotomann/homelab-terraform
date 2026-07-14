@@ -34,5 +34,6 @@ variable "contenedores" {
     ip       = string       # CIDR, ej. "192.168.1.50/24", o "dhcp"
     gateway  = optional(string)
     template = optional(string, "local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst")
-  }))
+    nesting = optional(bool, false)
+ }))
 }
