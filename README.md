@@ -42,6 +42,21 @@ pveum user token add terraform@pve terraform-token --privsep=0
 
 Guarda el `full-tokenid` y el `value` — el secret solo se muestra una vez.
 
+## Notas para reconstruir la plantilla Windows
+
+Antes del sysprep, aplicar siempre:
+
+```powershell
+# WinRM para gestión con Ansible
+winrm quickconfig -q
+winrm set winrm/config/service/auth '@{Basic="true"}'
+winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+Set-NetConnectionProfile -NetworkCategory Private
+New-NetFirewallRule -Name "WinRM-HTTP-In" -DisplayName "WinRM HTTP" -Enabled True -Direction Inbound -Protocol TCP -LocalPort 5985 -Action Allow -Profile Any
+
+# Quitar el aviso de Ctrl+Alt+Supr en consola virtualizada
+reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" /v DisableCAD /t REG_DWORD /d 1 /f
+
 ## Uso
 
 ```bash
