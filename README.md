@@ -138,10 +138,6 @@ Verificación de que el guest-agent quedó vivo (indica que la plantilla está b
 qm agent <vm_id> network-get-interfaces
 ```
 
-### IP fija
-
-Como no se usa cloud-init en Windows, la IP la sigue asignando el DHCP de tu router. Para fijarla: declara una `mac_address` en la entrada de la VM (mismo prefijo `BC:24:11` que usa Proxmox) y crea una reserva DHCP en el router para esa MAC.
-
 ## Uso general
 
 ```bash
