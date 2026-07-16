@@ -11,6 +11,10 @@ resource "proxmox_virtual_environment_vm" "windows" {
     full  = true
   }
 
+  lifecycle {
+    ignore_changes = [clone]
+  }
+
   agent {
     enabled = true
   }
@@ -32,6 +36,14 @@ resource "proxmox_virtual_environment_vm" "windows" {
 
   network_device {
     bridge = each.value.bridge
+  }
+
+  scsi_hardware = "virtio-scsi-single"
+
+  machine = "pc-i440fx-11.0"
+
+  operating_system {
+    type = "win11"
   }
 
   started = true
