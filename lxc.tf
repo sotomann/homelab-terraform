@@ -29,7 +29,7 @@ resource "proxmox_virtual_environment_container" "lxc" {
 
   operating_system {
     template_file_id = each.value.template
-    type              = "debian"
+    type             = "debian"
   }
 
   cpu {
@@ -49,6 +49,6 @@ resource "proxmox_virtual_environment_container" "lxc" {
     nesting = each.value.nesting
   }
 
-  started = true
+  started = each.value.started
 }
 

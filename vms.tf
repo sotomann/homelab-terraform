@@ -46,5 +46,5 @@ resource "proxmox_virtual_environment_vm" "windows" {
     type = "win11"
   }
 
-  started = true
+  started = each.value.started
 }

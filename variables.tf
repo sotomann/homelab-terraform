@@ -18,6 +18,7 @@ variable "flavors" {
     disk   = number # GB
   }))
   default = {
+    minimo  = { cores = 1, memory = 512, disk = 2 }
     basico  = { cores = 1, memory = 1024, disk = 10 }
     pro     = { cores = 2, memory = 2048, disk = 20 }
     supreme = { cores = 3, memory = 3072, disk = 30 }
@@ -30,12 +31,13 @@ variable "contenedores" {
   type = map(object({
     vm_id    = number
     hostname = string
-    flavor   = string       # debe existir en var.flavors
-    ip       = string       # CIDR, ej. "192.168.1.50/24", o "dhcp"
+    started  = optional(bool, true)
+    flavor   = string # debe existir en var.flavors
+    ip       = string # CIDR, ej. "192.168.1.50/24", o "dhcp"
     gateway  = optional(string)
     template = optional(string, "local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst")
-    nesting = optional(bool, false)
- }))
+    nesting  = optional(bool, false)
+  }))
 }
 
 variable "vms_windows" {
@@ -44,10 +46,17 @@ variable "vms_windows" {
     vm_id          = number
     name           = string
     template_vm_id = number
+    started        = optional(bool, true)
     cores          = optional(number, 2)
     memory         = optional(number, 4096)
     disk           = optional(number, 60)
     bridge         = optional(string, "vmbr0")
   }))
   default = {}
+}
+
+variable "kali_started" {
+  description = "Si la VM Kali debe estar encendida tras el apply"
+  type        = bool
+  default     = true
 }
